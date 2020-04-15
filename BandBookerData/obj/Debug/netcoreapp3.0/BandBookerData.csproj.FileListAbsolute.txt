@@ -1,0 +1,11 @@
+C:\Users\premr\Desktop\_temp\_learning\Blazor_Workshop_From_Stu\BlazorWorkshop1125\BandBookerData\bin\Debug\netcoreapp3.0\data_appsettings.json
+C:\Users\premr\Desktop\_temp\_learning\Blazor_Workshop_From_Stu\BlazorWorkshop1125\BandBookerData\bin\Debug\netcoreapp3.0\BandBookerData.deps.json
+C:\Users\premr\Desktop\_temp\_learning\Blazor_Workshop_From_Stu\BlazorWorkshop1125\BandBookerData\bin\Debug\netcoreapp3.0\BandBookerData.runtimeconfig.json
+C:\Users\premr\Desktop\_temp\_learning\Blazor_Workshop_From_Stu\BlazorWorkshop1125\BandBookerData\bin\Debug\netcoreapp3.0\BandBookerData.runtimeconfig.dev.json
+C:\Users\premr\Desktop\_temp\_learning\Blazor_Workshop_From_Stu\BlazorWorkshop1125\BandBookerData\bin\Debug\netcoreapp3.0\BandBookerData.dll
+C:\Users\premr\Desktop\_temp\_learning\Blazor_Workshop_From_Stu\BlazorWorkshop1125\BandBookerData\bin\Debug\netcoreapp3.0\BandBookerData.pdb
+C:\Users\premr\Desktop\_temp\_learning\Blazor_Workshop_From_Stu\BlazorWorkshop1125\BandBookerData\obj\Debug\netcoreapp3.0\BandBookerData.csprojAssemblyReference.cache
+C:\Users\premr\Desktop\_temp\_learning\Blazor_Workshop_From_Stu\BlazorWorkshop1125\BandBookerData\obj\Debug\netcoreapp3.0\BandBookerData.AssemblyInfoInputs.cache
+C:\Users\premr\Desktop\_temp\_learning\Blazor_Workshop_From_Stu\BlazorWorkshop1125\BandBookerData\obj\Debug\netcoreapp3.0\BandBookerData.AssemblyInfo.cs
+C:\Users\premr\Desktop\_temp\_learning\Blazor_Workshop_From_Stu\BlazorWorkshop1125\BandBookerData\obj\Debug\netcoreapp3.0\BandBookerData.dll
+C:\Users\premr\Desktop\_temp\_learning\Blazor_Workshop_From_Stu\BlazorWorkshop1125\BandBookerData\obj\Debug\netcoreapp3.0\BandBookerData.pdb
