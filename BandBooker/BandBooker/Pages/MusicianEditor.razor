@@ -14,26 +14,23 @@
             <EditForm Model="@Musician" OnValidSubmit="@SubmitButtonPressed">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
+
                 Name:
-                <InstantInputText @bind-Value="@Musician.Name"
-                                                   id="musician.name"
-                                                   type="text" style="width:100%;" />
+                <InstantInputText @bind-Value="@Musician.Name" id="musician.name"  type="text" style="width:100%;" />
                 <br /><br />
+
                 Email:
-                <InstantInputText @bind-Value="@Musician.Email"
-                                                   type="text" style="width:100%;" />
+                <InstantInputText @bind-Value="@Musician.Email" type="text" style="width:100%;" />
                 <br /><br />
+
                 Mobile Phone:
-                <InstantInputText @bind-Value="@Musician.MobilePhone"
-                                                   type="text" style="width:100%;" />
+                <InstantInputText @bind-Value="@Musician.MobilePhone" type="text" style="width:100%;" />
                 <br /><br />
+
                 Bio:
-                <textarea id="BioControl" @bind="@Musician.Bio"
-                                       rows="4"
-                                       style="width: 100%; overflow: hidden;
-                    overflow-wrap: break-word;
-                    overflow-y: scroll; " />
+                <textarea id="BioControl" @bind="@Musician.Bio" rows="4" style="width: 100%; overflow: hidden; overflow-wrap: break-word; overflow-y: scroll; " />
                 <br />
+
                 <table style="width:100%">
                     <tr>
                         <td style="width:45%;" valign="top">
@@ -72,28 +69,14 @@
                             </select>
                         </td>
                         <td style="width:10%;" valign="top">
-                            <button @onclick="AddSelectedInstrument"
-                                                      type="button"
-                                                      disabled="@AddSelectedInstrumentButtonDisabled"
-                                                      style="width:100%;">
-                                &gt;
-                            </button><br />
-                            <button @onclick="@AddAllInstruments"
-                                                      type="button"
-                                                      style="width:100%;">
-                                &gt;&gt;
-                            </button><br />
-                            <button @onclick="@RemoveSelectedInstrument"
-                                                      type="button"
-                                                      disabled="@RemoveSelectedInstrumentButtonDisabled"
-                                                      style="width:100%;">
-                                &lt;
-                            </button><br />
-                            <button @onclick="@RemoveAllInstruments"
-                                                      type="button"
-                                                      style="width:100%;">
-                                &lt;&lt;
-                            </button><br />
+                            <button @onclick="AddSelectedInstrument" type="button" disabled="@AddSelectedInstrumentButtonDisabled" style="width:100%;"> &gt; </button>
+                            <br />
+                            <button @onclick="@AddAllInstruments" type="button" style="width:100%;"> &gt;&gt; </button>
+                            <br />
+                            <button @onclick="@RemoveSelectedInstrument" type="button" disabled="@RemoveSelectedInstrumentButtonDisabled" style="width:100%;"> &lt; </button>
+                            <br />
+                            <button @onclick="@RemoveAllInstruments" type="button" style="width:100%;"> &lt;&lt; </button>
+                            <br />
                         </td>
                         <td style="width:45%;" valign="top">
                             <select @onchange="InstrumentSelectedFromMusician"
