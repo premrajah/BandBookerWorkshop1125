@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BandBooker.Areas.Identity;
 using BandBooker.Data;
+using Blazor.FileReader;
 
 namespace BandBooker
 {
@@ -40,9 +41,11 @@ namespace BandBooker
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
-            services.AddServerSideBlazor();
+            services.AddServerSideBlazor().AddHubOptions(options => options.MaximumReceiveMessageSize = 10 * 1024 * 1024); // 10Mb
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
+            services.AddFileReaderService(options => options.InitializeOnFirstCall  = true);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
