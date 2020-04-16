@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using BandBookerData;
+@using BandBooker.Data;
 @using BandBookerData.Models;
 @using Microsoft.AspNetCore.Components;
 
@@ -86,6 +87,12 @@
 
 @code {
 
+
+    protected override async Task OnInitializedAsync()
+    {
+        AllInstruments = await ApiService.GetInstruments();
+    }
+
     #region Instruments
     bool DisableInstrumentList = false;
     bool DisableInstrumentEditButton = true;
@@ -93,13 +100,6 @@
     Instrument SelectedInstrument;
     List<Instrument> AllInstruments = new List<Instrument>();
     InstrumentEditor instrumentEditor;
-
-
-    protected override void OnInitialized()
-    {
-        AllInstruments = DataManager.Instruments;
-    }
-
 
 
     void InstrumentCancelled(string message)
