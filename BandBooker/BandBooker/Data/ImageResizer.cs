@@ -23,8 +23,9 @@ namespace BandBooker.Data
 
 
             if (maxWidth == 0)
+            {
                 maxWidth = img.Width;
-
+            }
 
             var ratioX = (double)maxWidth / img.Width;
             var ratioY = (double)maxHeight / img.Height;
