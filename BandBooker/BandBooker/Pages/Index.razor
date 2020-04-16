@@ -24,6 +24,9 @@
 <button class="btn btn-secondary my-3" type="button" disabled="@DisableInstrumentEditButton" @onclick="EditInstrumentButtonClick">Edit</button>
 <button class="btn btn-danger" type="button" disabled="@DisableInstrumentEditButton" @onclick="DeleteInstrumentButtonClick">Delete</button>
 
+<br />
+<span class="text-danger">@InstrumentErrorMessage</span>
+
 
 @code {
 
