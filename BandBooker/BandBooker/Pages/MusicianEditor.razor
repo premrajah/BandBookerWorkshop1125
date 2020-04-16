@@ -69,13 +69,13 @@
                             </select>
                         </td>
                         <td style="width:10%;" valign="top">
-                            <button @onclick="AddSelectedInstrument" type="button" disabled="@AddSelectedInstrumentButtonDisabled" style="width:100%;"> &gt; </button>
+                            <button class="btn btn-secondary" @onclick="AddSelectedInstrument" type="button" disabled="@AddSelectedInstrumentButtonDisabled" style="width:100%;"> &gt; </button>
                             <br />
-                            <button @onclick="@AddAllInstruments" type="button" style="width:100%;"> &gt;&gt; </button>
+                            <button class="btn btn-secondary" @onclick="@AddAllInstruments" type="button" style="width:100%;"> &gt;&gt; </button>
                             <br />
-                            <button @onclick="@RemoveSelectedInstrument" type="button" disabled="@RemoveSelectedInstrumentButtonDisabled" style="width:100%;"> &lt; </button>
+                            <button class="btn btn-secondary" @onclick="@RemoveSelectedInstrument" type="button" disabled="@RemoveSelectedInstrumentButtonDisabled" style="width:100%;"> &lt; </button>
                             <br />
-                            <button @onclick="@RemoveAllInstruments" type="button" style="width:100%;"> &lt;&lt; </button>
+                            <button class="btn btn-secondary" @onclick="@RemoveAllInstruments" type="button" style="width:100%;"> &lt;&lt; </button>
                             <br />
                         </td>
                         <td style="width:45%;" valign="top">
@@ -97,16 +97,16 @@
                 Photo:
                 <br />
                 <input type="file" @ref=inputTypeFileElement />
-                <button type="button" @onclick=ReadFile>Upload</button>
+                <button class="btn btn-primary" type="button" @onclick=ReadFile>Upload</button>
                 <br />
                 @if (@Musician.PhotoUrl != "")
                 {
                     <img src="@Musician.PhotoUrl" />
                 }
                 <br /><br />
-                <button type="submit">@SubmitButtonText</button>
+                <button class="btn btn-secondary" type="submit">@SubmitButtonText</button>
                 <span>&nbsp;</span>
-                <button type="button" @onclick="CancelButtonPressed">Cancel</button>
+                <button class="btn btn-warning" type="button" @onclick="CancelButtonPressed">Cancel</button>
             </EditForm>
 
         </div>
