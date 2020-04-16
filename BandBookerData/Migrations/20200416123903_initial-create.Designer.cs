@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BandBookerData.Migrations
 {
     [DbContext(typeof(BandBookerContext))]
-    [Migration("20200328204234_initial-create")]
+    [Migration("20200416123903_initial-create")]
     partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
