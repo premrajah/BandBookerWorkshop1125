@@ -89,6 +89,8 @@
         DataManager.AddInstrument(instrument);
         DisableInstrumentList = false;
         DisableInstrumentEditButton = (SelectedInstrument == null);
+        AllInstruments = DataManager.Instruments;
+        SelectedInstrument = AllInstruments.Last();
         instrumentEditor.Hide();
     }
 
