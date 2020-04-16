@@ -20,6 +20,9 @@ namespace BandBooker
 {
     public class Startup
     {
+        // User: prem@prem.com | Pa$$w0rd!
+        // User: harry@harrychap.com | P@ssword1
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
