@@ -40,6 +40,7 @@ namespace BandBooker
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
             services.AddServerSideBlazor().AddHubOptions(options => options.MaximumReceiveMessageSize = 10 * 1024 * 1024); // 10Mb
