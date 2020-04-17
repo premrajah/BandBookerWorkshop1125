@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using BandBooker.Areas.Identity;
 using BandBooker.Data;
 using Blazor.FileReader;
+using BandBooker.Hubs;
 
 namespace BandBooker
 {
@@ -45,6 +46,7 @@ namespace BandBooker
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
             services.AddFileReaderService(options => options.InitializeOnFirstCall  = true);
+            services.AddSignalR();
             
         }
 
@@ -76,6 +78,7 @@ namespace BandBooker
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapHub<adminHub>("/adminhub");
             });
         }
     }
