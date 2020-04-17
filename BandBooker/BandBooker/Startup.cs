@@ -78,7 +78,7 @@ namespace BandBooker
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
-                endpoints.MapHub<adminHub>("/adminhub");
+                endpoints.MapHub<adminHub>("/adminHub");
             });
         }
     }
