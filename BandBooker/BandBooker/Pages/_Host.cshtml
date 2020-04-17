@@ -33,12 +33,19 @@
 
     <script src="_framework/blazor.server.js"></script>
     <script>
+
+        // signalR
+        window.GetInputValue = (Id) => {
+            let elem = document.getElementById(Id);
+            return elem.value;
+        };
+
         window.SetFocus = (Id) => {
             setTimeout(internalFocus, 10, Id);
         };
 
         function internalFocus(Id) {
-            var element = document.getElementById(Id);
+            let element = document.getElementById(Id);
             if (element == null) {
                 setTimeout(internalFocus, 10, Id);
                 return;

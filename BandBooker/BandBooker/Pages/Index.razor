@@ -3,6 +3,7 @@
 @using BandBooker.Data;
 @using BandBookerData.Models;
 @using Microsoft.AspNetCore.Components;
+@using Microsoft.AspNetCore.SignalR.Client;
 
 
 <h2>Instruments</h2>
@@ -12,7 +13,7 @@
     @foreach (var instrument in AllInstruments)
     {
         @if (SelectedInstrument != null
- && instrument.InstrumentId == SelectedInstrument.InstrumentId)
+&& instrument.InstrumentId == SelectedInstrument.InstrumentId)
         {
             <option selected value="@instrument.InstrumentId.ToString()">
                 @instrument.Name
@@ -79,8 +80,8 @@
 <MusicianEditor @ref="musicianEditor"  
                 CancelPressed="EditMusicianCancelled"
                 MusicianAdded="MusicianAdded"
-                MusicianUpdated="MusicianUpdated" 
-/>
+                MusicianUpdated="MusicianUpdated"
+                BioUpdated="MusicianBioUpdated" />
 <br />
 <br />
 
@@ -91,6 +92,21 @@
     protected override async Task OnInitializedAsync()
     {
         AllInstruments = await ApiService.GetInstruments();
+
+        connection = new Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder()
+            .WithUrl("https://localhost:44367/adminHub")
+            .Build();
+
+        connection.On<int, string>("ReceiveSyncMusicianBio", this.OnReceiveSyncMusicianBio);
+
+        try
+        {
+            await connection.StartAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 
     #region Instruments
@@ -203,6 +219,31 @@
     MusicianEditor musicianEditor;
     bool DisableMusicianControls = false;
     bool DisableMusicianEditButton = true;
+
+    HubConnection connection; // signalR
+
+    void OnReceiveSyncMusicianBio(int MusicianId, string Bio)
+    {
+        var musician = (from x in DataManager.Musicians
+                        where x.MusicianId == MusicianId
+                        select x).FirstOrDefault();
+
+
+        if (musician != null)
+        {
+            musicianEditor.UpdateMusicianBio(MusicianId, Bio);
+        }
+    }
+
+
+    async Task MusicianBioUpdated(string bio)
+    {
+        if (SelectedMusician != null)
+        {
+            await connection.InvokeAsync("SyncMusicianBio",
+                 SelectedMusician.MusicianId, bio);
+        }
+    }
 
 
     void EditMusicianCancelled(string message)

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BandBooker", "BandBooker\BandBooker.csproj", "{B7144C16-F076-4409-A6C2-996A79AF44BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BandBooker", "BandBooker\BandBooker.csproj", "{B7144C16-F076-4409-A6C2-996A79AF44BD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BandBookerData", "..\BandBookerData\BandBookerData.csproj", "{6C1B1565-1440-4A95-8FFB-32B232555C9A}"
 EndProject
