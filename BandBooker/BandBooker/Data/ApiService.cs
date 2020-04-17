@@ -5,12 +5,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace BandBooker.Data
 {
     public class ApiService
     {
-        static string baseURL = "https://localhost:44367/";
+        static string baseURL = "";
+
+        static ApiService()
+        {
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            var Configuration = builder.Build();
+            baseURL = Configuration["BaseURL"];
+        }
 
         public static async Task<List<Instrument>> GetInstruments()
         {
