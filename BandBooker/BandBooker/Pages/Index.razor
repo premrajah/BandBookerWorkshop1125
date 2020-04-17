@@ -6,196 +6,247 @@
 @using Microsoft.AspNetCore.SignalR.Client;
 @using Microsoft.Extensions.Configuration;
 @inject IConfiguration Configuration;
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
-
-<h2>Instruments</h2>
-<select @onchange="InstrumentSelected"
-            size="10" style="width:100%;"
-            disabled="@DisableInstrumentList">
-    @foreach (var instrument in AllInstruments)
+<h1>Band Booker</h1>
+@if (!IsAllowedToView)
+{
+    @if (LoggedIn)
     {
-        @if (SelectedInstrument != null
-&& instrument.InstrumentId == SelectedInstrument.InstrumentId)
+        if (@IsMusician)
         {
-            <option selected value="@instrument.InstrumentId.ToString()">
-                @instrument.Name
-            </option>
+            <span>Select the Musician Button from the menu.</span>
         }
         else
         {
-            <option value="@instrument.InstrumentId.ToString()">@instrument.Name</option>
+            <span>You have not yet been authorized. Please send Carl a message.</span>
         }
     }
-</select>
-<br />
-
-<button class="btn btn-primary" disabled="@DisableInstrumentList" @onclick="NewInstrumentButtonClick">New</button>
-<span>&nbsp;</span>
-
-
-<button class="btn btn-secondary" disabled="@DisableInstrumentEditButton" @onclick="EditInstrumentButtonClick">Edit</button>
-<span>&nbsp;</span>
-
-
-<button class="btn btn-danger" disabled="@DisableInstrumentEditButton" @onclick="DeleteInstrumentButtonClick">Delete</button>
-<span>&nbsp;</span>
-
-
-<br />
-<span class="text-danger">@InstrumentErrorMessage</span>
-
-
-<InstrumentEditor @ref="instrumentEditor"
-                           Instrument="SelectedInstrument"
-                           CancelPressed="InstrumentCancelled"
-                           InstrumentAdded="InstrumentAdded"
-                           InstrumentUpdated="InstrumentUpdated">
-</InstrumentEditor>
-<br />
-<br />
-
-
-<h2>Musicians</h2>
-<select @onchange="MusicianSelected" size="10" style="width:100%;" disabled="@DisableMusicianControls">
-    @foreach (var musician in DataManager.Musicians)
+    else
     {
-        if (SelectedMusician != null
-         && musician.MusicianId == SelectedMusician.MusicianId)
-        {
-            <option selected value="@musician.MusicianId.ToString()">@musician.Name</option>
-        }
-        else
-        {
-            <option value="@musician.MusicianId.ToString()">@musician.Name</option>
-        }
+        <span>
+            Please <a href="Identity/Account/Register">Register</a>
+            &nbsp;or&nbsp;
+            <a href="Identity/Account/Login">Log in</a>
+        </span>
     }
-</select>
-<br />
+}
+else
+{
 
 
-<button class="btn btn-primary" disabled="@DisableMusicianControls" @onclick="NewMusicianButtonClick"> New </button>
-<button class="btn btn-secondary" disabled="@DisableMusicianEditButton" @onclick="EditMusicianButtonClick"> Edit</button>
-<button class="btn btn-danger" disabled="@DisableMusicianEditButton" @onclick="DeleteMusicianButtonClick"> Delete</button>
-<br />
-
-
-<span class="text-danger">@MusicianErrorMessage</span>
-<MusicianEditor @ref="musicianEditor"  
-                CancelPressed="EditMusicianCancelled"
-                MusicianAdded="MusicianAdded"
-                MusicianUpdated="MusicianUpdated"
-                BioUpdated="MusicianBioUpdated">
-</MusicianEditor>
-
-<br />
-<br />
-
-<h2>Bands</h2>
-<select @onchange="BandSelected" size="10" style="width:100%;" disabled="@DisableBandControls">
-    @foreach (var band in DataManager.Bands)
-    {
-        if (SelectedBand != null
-         && SelectedBand.BandId == band.BandId)
+    <h2>Instruments</h2>
+    <select @onchange="InstrumentSelected"
+                size="10" style="width:100%;"
+                disabled="@DisableInstrumentList">
+        @foreach (var instrument in AllInstruments)
         {
-            <option selected value="@band.BandId.ToString()">@band.Name</option>
+            @if (SelectedInstrument != null
+   && instrument.InstrumentId == SelectedInstrument.InstrumentId)
+            {
+                <option selected value="@instrument.InstrumentId.ToString()">
+                    @instrument.Name
+                </option>
+            }
+            else
+            {
+                <option value="@instrument.InstrumentId.ToString()">@instrument.Name</option>
+            }
         }
-        else
+    </select>
+    <br />
+
+    <button class="btn btn-primary" disabled="@DisableInstrumentList" @onclick="NewInstrumentButtonClick">New</button>
+    <span>&nbsp;</span>
+
+
+    <button class="btn btn-secondary" disabled="@DisableInstrumentEditButton" @onclick="EditInstrumentButtonClick">Edit</button>
+    <span>&nbsp;</span>
+
+
+    <button class="btn btn-danger" disabled="@DisableInstrumentEditButton" @onclick="DeleteInstrumentButtonClick">Delete</button>
+    <span>&nbsp;</span>
+
+
+    <br />
+    <span class="text-danger">@InstrumentErrorMessage</span>
+
+
+    <InstrumentEditor @ref="instrumentEditor"
+                               Instrument="SelectedInstrument"
+                               CancelPressed="InstrumentCancelled"
+                               InstrumentAdded="InstrumentAdded"
+                               InstrumentUpdated="InstrumentUpdated">
+    </InstrumentEditor>
+    <br />
+    <br />
+
+
+    <h2>Musicians</h2>
+    <select @onchange="MusicianSelected" size="10" style="width:100%;" disabled="@DisableMusicianControls">
+        @foreach (var musician in DataManager.Musicians)
         {
-            <option value="@band.BandId.ToString()">@band.Name</option>
+            if (SelectedMusician != null
+             && musician.MusicianId == SelectedMusician.MusicianId)
+            {
+                <option selected value="@musician.MusicianId.ToString()">@musician.Name</option>
+            }
+            else
+            {
+                <option value="@musician.MusicianId.ToString()">@musician.Name</option>
+            }
         }
-    }
-</select>
-<br />
-<button class="btn btn-primary" disabled="@DisableBandControls" @onclick="NewBandButtonClick">New</button>
-<span>&nbsp;</span>
-<button class="btn btn-secondary" disabled="@DisableBandEditButton" @onclick="EditBandButtonClick">Edit</button>
-<span>&nbsp;</span>
-<button class="btn btn-danger" disabled="@DisableBandEditButton" @onclick="DeleteBandButtonClick">Delete</button>
-<br />
-<span style="color:red;">@BandErrorMessage</span>
-<BandEditor @ref="bandEditor"
-            CancelPressed="EditBandCancelled"
-            BandAdded="BandAdded"
-            BandUpdated="BandUpdated">
-</BandEditor>
-
-<br />
-<br />
+    </select>
+    <br />
 
 
-<h2>Venues</h2>
-<select @onchange="VenueSelected" size="10" style="width:100%;" disabled="@DisableVenueControls">
-    @foreach (var Venue in DataManager.Venues)
-    {
-        if (SelectedVenue != null
-         && SelectedVenue.VenueId == Venue.VenueId)
+    <button class="btn btn-primary" disabled="@DisableMusicianControls" @onclick="NewMusicianButtonClick"> New </button>
+    <button class="btn btn-secondary" disabled="@DisableMusicianEditButton" @onclick="EditMusicianButtonClick"> Edit</button>
+    <button class="btn btn-danger" disabled="@DisableMusicianEditButton" @onclick="DeleteMusicianButtonClick"> Delete</button>
+    <br />
+
+
+    <span class="text-danger">@MusicianErrorMessage</span>
+    <MusicianEditor @ref="musicianEditor"  
+                    CancelPressed="EditMusicianCancelled"
+                    MusicianAdded="MusicianAdded"
+                    MusicianUpdated="MusicianUpdated"
+                    BioUpdated="MusicianBioUpdated">
+    </MusicianEditor>
+
+    <br />
+    <br />
+
+    <h2>Bands</h2>
+    <select @onchange="BandSelected" size="10" style="width:100%;" disabled="@DisableBandControls">
+        @foreach (var band in DataManager.Bands)
         {
-            <option selected value="@Venue.VenueId.ToString()">@Venue.Name</option>
+            if (SelectedBand != null
+             && SelectedBand.BandId == band.BandId)
+            {
+                <option selected value="@band.BandId.ToString()">@band.Name</option>
+            }
+            else
+            {
+                <option value="@band.BandId.ToString()">@band.Name</option>
+            }
         }
-        else
+    </select>
+    <br />
+    <button class="btn btn-primary" disabled="@DisableBandControls" @onclick="NewBandButtonClick">New</button>
+    <span>&nbsp;</span>
+    <button class="btn btn-secondary" disabled="@DisableBandEditButton" @onclick="EditBandButtonClick">Edit</button>
+    <span>&nbsp;</span>
+    <button class="btn btn-danger" disabled="@DisableBandEditButton" @onclick="DeleteBandButtonClick">Delete</button>
+    <br />
+    <span style="color:red;">@BandErrorMessage</span>
+    <BandEditor @ref="bandEditor"
+                CancelPressed="EditBandCancelled"
+                BandAdded="BandAdded"
+                BandUpdated="BandUpdated">
+    </BandEditor>
+
+    <br />
+    <br />
+
+
+    <h2>Venues</h2>
+    <select @onchange="VenueSelected" size="10" style="width:100%;" disabled="@DisableVenueControls">
+        @foreach (var Venue in DataManager.Venues)
         {
-            <option value="@Venue.VenueId.ToString()">@Venue.Name</option>
+            if (SelectedVenue != null
+             && SelectedVenue.VenueId == Venue.VenueId)
+            {
+                <option selected value="@Venue.VenueId.ToString()">@Venue.Name</option>
+            }
+            else
+            {
+                <option value="@Venue.VenueId.ToString()">@Venue.Name</option>
+            }
         }
-    }
-</select>
-<br />
-<button class="btn btn-primary" disabled="@DisableVenueControls" @onclick="NewVenueButtonClick">New</button>
-<span>&nbsp;</span>
-<button class="btn btn-secondary" disabled="@DisableVenueEditButton" @onclick="EditVenueButtonClick">Edit</button>
-<span>&nbsp;</span>
-<button class="btn btn-danger" disabled="@DisableVenueEditButton" @onclick="DeleteVenueButtonClick">Delete</button>
-<br />
-<span style="color:red;">@VenueErrorMessage</span>
-<VenueEditor @ref="venueEditor"
-                   CancelPressed="EditVenueCancelled"
-                   VenueAdded="VenueAdded"
-                   VenueUpdated="VenueUpdated">
-</VenueEditor>
+    </select>
+    <br />
+    <button class="btn btn-primary" disabled="@DisableVenueControls" @onclick="NewVenueButtonClick">New</button>
+    <span>&nbsp;</span>
+    <button class="btn btn-secondary" disabled="@DisableVenueEditButton" @onclick="EditVenueButtonClick">Edit</button>
+    <span>&nbsp;</span>
+    <button class="btn btn-danger" disabled="@DisableVenueEditButton" @onclick="DeleteVenueButtonClick">Delete</button>
+    <br />
+    <span style="color:red;">@VenueErrorMessage</span>
+    <VenueEditor @ref="venueEditor"
+                       CancelPressed="EditVenueCancelled"
+                       VenueAdded="VenueAdded"
+                       VenueUpdated="VenueUpdated">
+    </VenueEditor>
 
 
-<br />
-<br />
-<h2>Bookings</h2>
-<select @onchange="BookingSelected" size="10" style="width:100%;" disabled="@DisableBookingControls">
-    @foreach (var Booking in DataManager.Bookings)
-    {
-        if (SelectedBooking != null
-         && SelectedBooking.BookingId == Booking.BookingId)
+    <br />
+    <br />
+    <h2>Bookings</h2>
+    <select @onchange="BookingSelected" size="10" style="width:100%;" disabled="@DisableBookingControls">
+        @foreach (var Booking in DataManager.Bookings)
         {
-            <option selected value="@Booking.BookingId.ToString()">@Booking.Name</option>
+            if (SelectedBooking != null
+             && SelectedBooking.BookingId == Booking.BookingId)
+            {
+                <option selected value="@Booking.BookingId.ToString()">@Booking.Name</option>
+            }
+            else
+            {
+                <option value="@Booking.BookingId.ToString()">@Booking.Name</option>
+            }
+
+
         }
-        else
-        {
-            <option value="@Booking.BookingId.ToString()">@Booking.Name</option>
-        }
+    </select>
+    <br />
+    <button class="btn btn-primary" disabled="@DisableBookingControls" @onclick="NewBookingButtonClick">New</button>
+    <span>&nbsp;</span>
+    <button class="btn btn-secondary" disabled="@DisableBookingEditButton" @onclick="EditBookingButtonClick">Edit</button>
+    <span>&nbsp;</span>
+    <button class="btn btn-danger" disabled="@DisableBookingEditButton" @onclick="DeleteBookingButtonClick">Delete</button>
+    <br />
+    <span style="color:red;">@BookingErrorMessage</span>
+    <BookingEditor @ref="BookingEditor"
+                   CancelPressed="EditBookingCancelled"
+                   BookingAdded="BookingAdded"
+                   BookingUpdated="BookingUpdated"
+                   ContactMusicians="ContactMusicians"
+                   BandWasBooked="BandWasBooked">
+    </BookingEditor>
+    <br />
+    <br />
 
-
-    }
-</select>
-<br />
-<button class="btn btn-primary" disabled="@DisableBookingControls" @onclick="NewBookingButtonClick">New</button>
-<span>&nbsp;</span>
-<button class="btn btn-secondary" disabled="@DisableBookingEditButton" @onclick="EditBookingButtonClick">Edit</button>
-<span>&nbsp;</span>
-<button class="btn btn-danger" disabled="@DisableBookingEditButton" @onclick="DeleteBookingButtonClick">Delete</button>
-<br />
-<span style="color:red;">@BookingErrorMessage</span>
-<BookingEditor @ref="BookingEditor"
-               CancelPressed="EditBookingCancelled"
-               BookingAdded="BookingAdded"
-               BookingUpdated="BookingUpdated"
-               ContactMusicians="ContactMusicians"
-               BandWasBooked="BandWasBooked">
-</BookingEditor>
-<br />
-<br />
-
+}
 
 @code {
 
+    bool IsAllowedToView = false;
+    bool LoggedIn = false;
+    bool IsMusician = false;
 
     protected override async Task OnInitializedAsync()
     {
+        // Authentication
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        var user = authState.User;
+        string email = user.Identity.Name;
+        if (email == null) return;
+
+
+        LoggedIn = true;
+        if (user.IsInRole("musician"))
+        {
+            IsMusician = true;
+        }
+
+        if (!user.IsInRole("manager")) return;
+        IsAllowedToView = true;
+
+
+
+
         string baseUrl = Configuration["BaseURL"];
 
         AllInstruments = await ApiService.GetInstruments();
